@@ -29,26 +29,32 @@ class Pdf(object):
               <h2 class="title">Software Developer</h2>
               <p class="intro-text">I am a builder and problem solver. The solution will get done in whatever way is required from Haskell through Java to machine language and beyond. I understand the language of business and can ask the right questions at the right time to arrive at the best possible outcome. I am a generalist with strong experience in full stack web development.</p>
               <div class="experience">
-                <dl class="experience">
-                  <dt>Software Developer</dt>
-                  <dd>Futurice Oy 2014-Present</dd>
-                  <dt>High Performance Analysis</dt>
-                  <dd>Cray Inc 2013-2014</dd>
-                  <dt>Research Assistant</dt>
-                  <dd>University of Helsinki 2011-2012</dd>
-                  <dt>Intern</dt>
-                  <dd>CSC 2011, FMI 2009-2011</dd>
+                <h3>Experience</h3>
+                <dl>
+                <dt>Software Developer</dt>
+                <dd>Futurice Oy 2014-Present</dd>
+                <span>—</span>
+                <dt>High Performance Analysis</dt>
+                <dd>Cray Inc 2013-2014</dd>
+                <span>—</span>
+                <dt>Research Assistant</dt>
+                <dd>University of Helsinki 2011-2012</dd>
+                <span>—</span>
+                <dt>Intern</dt>
+                <dd>CSC 2011, FMI 2009-2011</dd>
                 </dl>
               </div>
               <div class="education">
+                <h3>Education</h3>
                 <dl>
-                  <dt>University of Helsinki</dt>
-                  <dd>M.Sc., Theoretical Physics</dd>
-                  <dd>2008-2013</dd>
+                <dt>University of Helsinki</dt>
+                <dd>M.Sc., Theoretical Physics</dd>
+                <dd>2008-2013</dd>
                 </dl>
               </div>
               <div class="social">
-                 <span class="email">daniel.landau@futurice.com</span>
+                <span class="email">daniel.landau@futurice.com</span>
+                <span class="twitter">@Daniel_Landau</span>
               </div>
             </div>
           </body>
@@ -71,6 +77,28 @@ class Pdf(object):
           background-color: white;
           margin: 0;
           height: 1080px;
+          padding-left: 50px;
+          padding-top: 50px;
+          padding-right: 200px;
+        }
+
+        .experience {
+          float: left;
+          width: 442px;
+        }
+
+        .education {
+          float: left;
+          width: 472px;
+          padding-left: 30px;
+        }
+
+        .social {
+          position: fixed;
+          width: 472px;
+          bottom: 50px;
+          left: 1248px;
+          color: green;
         }
 
         .left-pane {
@@ -83,6 +111,14 @@ class Pdf(object):
           height: 1080px;
         }
 
+        dt {
+          font-weight: bold;
+        }
+
+        dd {
+          margin-left: 0;
+        }
+
         .keywords {
           position: absolute;
           left: 50%;
@@ -92,6 +128,17 @@ class Pdf(object):
           background-color: #C4E2D9;
           padding-left: 10px;
           padding-right: 30px;
+        }
+
+        h1.name {
+          padding-top: 0px;
+          padding-bottom: 10px;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+
+        .title {
+          margin-top: 0;
         }
 
         body {
