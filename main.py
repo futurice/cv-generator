@@ -112,7 +112,7 @@ class Pdf(object):
         }
 
         dt {
-          font-weight: bold;
+          font-family: Sharp Sans No1 Bold;
         }
 
         dd {
@@ -141,8 +141,17 @@ class Pdf(object):
           margin-top: 0;
         }
 
+        h1, h2, h3 {
+          font-family: Sharp Sans No1 Black;
+          letter-spacing: 1px;
+        }
+
+        h3 {
+          text-transform: uppercase;
+        }
+
         body {
-          font-family: Liberation Sans;
+          font-family: Sharp Sans No1 Medium;
           font-size: 30px;
         }
 
