@@ -55,6 +55,7 @@ class Pdf(object):
               <div class="social">
                 <span class="email">daniel.landau@futurice.com</span>
                 <span class="twitter">@Daniel_Landau</span>
+                <span>fi.linkedin.com/in/landaudaniel</span>
               </div>
             </div>
           </body>
@@ -99,6 +100,10 @@ class Pdf(object):
           bottom: 50px;
           left: 1248px;
           color: green;
+        }
+
+        .social span {
+          display: block;
         }
 
         .left-pane {
