@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CV</title>
+  </head>
+  <body>
+    <div class="left-pane">
+      <img class="pic" src="foo.jpg" />
+      <div class="keywords">
+        <ul>
+          {% for keyword in keywords %}
+          <li>{{keyword}}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="right-pane">
+      <h1 class="name">{{name}}</h1>
+      <h2 class="title">{{title}}</h2>
+      {% for introChapter in intro %}
+      <p class="intro-text">{{introChapter}}</p>
+      {% endfor %}
+      <div class="experience">
+        <h3>Experience</h3>
+        <dl>
+          {% for experience in experiences %}
+          <dt>{{experience.title}}</dt>
+          <dd>{{experience.companyAndTime}}</dd>
+          {% if not loop.last%}<span>—</span>{% endif %}
+          {% endfor %}
+        </dl>
+      </div>
+      <div class="education">
+        <h3>Education</h3>
+        <dl>
+          {% for education in educations %}
+          <dt>{{education.place}}</dt>
+          <dd>{{education.degree}}</dd>
+          <dd>{{education.time}}</dd>
+          {% if not loop.last%}<span>—</span>{% endif %}
+          {% endfor %}
+        </dl>
+      </div>
+      <div class="social">
+        <span class="email">{{social.email}}</span>
+        {% if social.twitter %}<span class="twitter">{{social.twitter}}</span>{% endif %}
+        {% if social.linkedin %}<span>{{social.linkedin}}</span>{% endif %}
+      </div>
+    </div>
+  </body>
+</html>

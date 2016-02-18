@@ -1,2 +1,3 @@
 WeasyPrint
 cherrypy
+jinja2
