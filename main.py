@@ -7,6 +7,7 @@ from base64 import b64encode
 import os
 import redis
 import json
+import random
 
 class App(object):
 
@@ -156,7 +157,11 @@ class App(object):
 
     @cherrypy.expose('')
     def index(self, **kwargs):
-        key = kwargs['key']
+        try:
+            key = kwargs['key']
+        except KeyError:
+            raise cherrypy.HTTPRedirect('/?key=%08x' % random.getrandbits(32))
+
         s = self.redis.get(key)
 
         if s == None:
@@ -184,6 +189,8 @@ cherrypy.quickstart(App(), '/',
                      '/index.js':
                      {'tools.staticfile.on': True,
                       'tools.staticfile.filename': os.getcwd() + '/index.js'
+                     },
+                     'global': {
+                         'server.socket_host': '0.0.0.0'
                      }
-
                     })
