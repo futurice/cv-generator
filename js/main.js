@@ -16,7 +16,7 @@ $('#add-education').click(() => {
             <label>Time<input type="text" name="time[]"></label>');
 });
 
-$('#update').click(() => {
+const updateImage = () => {
 
     const titles = $('input[name="title[]"]').map(function () { return $(this).val(); }).get();
     const companiesAndTimes = $('input[name="companyAndTime[]"]').map(function () { return $(this).val(); }).get();
@@ -46,7 +46,8 @@ $('#update').click(() => {
     let linkedin = $('input[name="linkedin"]').val();
     Object.assign(social, linkedin.length > 0 ? {'linkedin': linkedin} : {});
 
-    return $.ajax('http://127.0.0.1:8080/cv?type=png&base64', {
+    const key = document.location.search.substr(1).split('=')[1];
+    return $.ajax('http://127.0.0.1:8080/cv?type=png&base64&key=' + key, {
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(
@@ -59,7 +60,10 @@ $('#update').click(() => {
              "social": social,
              "image": "foo.jpg"
             })
-    }).done(
-        (resp) =>
-        $("#preview").attr('src', 'data:image/png;base64,' + resp));
-});
+    }).done((resp) => $("#preview").attr('src', 'data:image/png;base64,' + resp));
+};
+
+$('#update').click(updateImage);
+
+
+updateImage();

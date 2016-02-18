@@ -14,27 +14,31 @@
     <div class="row">
       <div class="small-12 medium-6 columns">
         <div>
-          <label>Name<input name="name" type="text"></label>
-          <label>Title<input name="title" type="text"></label>
-          <label>Keywords (separate by comma)<input name="keywords" type="text"></label>
-          <label>Intro text<textarea rows="8" id="intro-text"></textarea></label>
+          <label>Name<input name="name" type="text" value="{{name}}"></label>
+          <label>Title<input name="title" type="text" value="{{title}}"></label>
+          <label>Keywords (separate by comma)<input name="keywords" type="text" value="{{', '.join(keywords)}}"></label>
+          <label>Intro text<textarea rows="8" id="intro-text">{{'\n\n'.join(intro)}}</textarea></label>
           <h3>Experiences</h3>
           <div id="experiences-holder">
-            <label>Title<input type="text" name="title[]"></label>
-            <label>Company and Time<input type="text" name="companyAndTime[]"></label>
+            {% for experience in experiences %}
+            <label>Title<input type="text" name="title[]" value="{{experience['title']}}"></label>
+            <label>Company and Time<input type="text" name="companyAndTime[]" value="{{experience['companyAndTime']}}"></label>
+            {% endfor %}
           </div>
-          <button class="button small" id="add-experience">Add another Experience</button>
+          <button class="button small" id="add-experience">Add Experience</button>
           <h3>Educations</h3>
           <div id="educations-holder">
-            <label>Place<input type="text" name="place[]"></label>
-            <label>Degree<input type="text" name="degree[]"></label>
-            <label>Time<input type="text" name="time[]"></label>
+            {% for education in educations %}
+            <label>Place<input type="text" name="place[]" value="{{education['place']}}"></label>
+            <label>Degree<input type="text" name="degree[]" value="{{education['degree']}}"></label>
+            <label>Time<input type="text" name="time[]" value="{{education['time']}}"></label>
+            {% endfor %}
           </div>
-          <button class="button small" id="add-education">Add another Education</button>
+          <button class="button small" id="add-education">Add Education</button>
           <h3>Social</h3>
-          <label>Email<input type="text" name="email"></label>
-          <label>Twitter<input type="text" name="twitter"></label>
-          <label>LinkedIn<input type="text" name="linkedin"></label>
+          <label>Email<input type="text" name="email" value="{{social['email']}}"></label>
+          <label>Twitter<input type="text" name="twitter" value="{{social['twitter']}}"></label>
+          <label>LinkedIn<input type="text" name="linkedin" value="{{social['linkedin']}}"></label>
         </div>
         <button class="button" id="update">update</button>
       </div>

@@ -5,12 +5,15 @@ import weasyprint
 from jinja2 import Template, FileSystemLoader, Environment
 from base64 import b64encode
 import os
+import redis
+import json
 
 class App(object):
 
     def __init__(self):
         loader = FileSystemLoader('templates')
         self.templateEnv = Environment(loader =  loader)
+        self.redis = redis.Redis(host="localhost")
 
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
@@ -22,6 +25,10 @@ class App(object):
             responseType = 'application/png'
         else:
             responseType = 'application/pdf'
+
+
+        key = kwargs['key']
+        self.redis.set(key, json.dumps(data))
 
         cherrypy.response.headers['Content-Type'] = responseType
         template = self.templateEnv.get_template('cv.html')
@@ -142,8 +149,16 @@ class App(object):
             return bytes
 
     @cherrypy.expose('')
-    def index(self):
-        return self.templateEnv.get_template('index.html').render()
+    def index(self, **kwargs):
+        key = kwargs['key']
+        s = self.redis.get(key)
+
+        if s == None:
+            data = {'social': {}}
+        else:
+            data = json.loads(s.decode('utf-8'))
+
+        return self.templateEnv.get_template('index.html').render(data)
 
 
 cherrypy.quickstart(App(), '/',

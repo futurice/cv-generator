@@ -1,3 +1,4 @@
 WeasyPrint
 cherrypy
 jinja2
+redis
