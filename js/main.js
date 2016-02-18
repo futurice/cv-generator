@@ -16,6 +16,8 @@ $('#add-education').click(() => {
             <label>Time<input type="text" name="time[]"></label>');
 });
 
+const getKey = () => document.location.search.substr(1).split('=')[1];
+
 const updateImage = () => {
 
     const titles = $('input[name="title[]"]').map(function () { return $(this).val(); }).get();
@@ -46,8 +48,8 @@ const updateImage = () => {
     let linkedin = $('input[name="linkedin"]').val();
     Object.assign(social, linkedin.length > 0 ? {'linkedin': linkedin} : {});
 
-    const key = document.location.search.substr(1).split('=')[1];
-    return $.ajax('http://127.0.0.1:8080/cv?type=png&base64&key=' + key, {
+    const key = getKey();
+    return $.ajax('/cv?type=png&base64&key=' + key, {
         type: "POST",
         contentType: "application/json",
         data: JSON.stringify(
@@ -57,13 +59,28 @@ const updateImage = () => {
              "intro": $('#intro-text').val().split('\n\n'),
              "experiences": experiences,
              "educations": educations,
-             "social": social,
-             "image": "foo.jpg"
+             "social": social
             })
     }).done((resp) => $("#preview").attr('src', 'data:image/png;base64,' + resp));
 };
 
 $('#update').click(updateImage);
 
+$('#file-upload').change(function () {
+    const file = this.files[0];
+    let reader = new FileReader();
+    const suffix = file.type === 'image/png' ? '.png' : (file.type === 'image/jpg' || file.type === 'image/jpeg') ? '.jpg' : '';
+    if (suffix.length === 0) throw new Error("Only .png and .jpg are supported");
+
+    reader.onloadend = () => {
+        $.ajax('/upload?filename=' + getKey() + suffix + '&key=' + getKey(), {
+            type: 'POST',
+            contentType: file.type,
+            data: reader.result,
+            processData: false
+        });
+    };
+    reader.readAsArrayBuffer(file);
+});
 
 updateImage();

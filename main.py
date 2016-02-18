@@ -29,6 +29,12 @@ class App(object):
 
         key = kwargs['key']
         self.redis.set(key, json.dumps(data))
+        savedFilenameMaybe = self.redis.get(key + '-filename')
+
+        if savedFilenameMaybe != None:
+            data['image'] = savedFilenameMaybe.decode('utf-8')
+        else:
+            data['image'] = 'placeholder.jpg'
 
         cherrypy.response.headers['Content-Type'] = responseType
         template = self.templateEnv.get_template('cv.html')
@@ -159,6 +165,15 @@ class App(object):
             data = json.loads(s.decode('utf-8'))
 
         return self.templateEnv.get_template('index.html').render(data)
+
+    @cherrypy.expose('upload')
+    def upload(self, **kwargs):
+        filename = 'uploads/' + kwargs['filename']
+        key = kwargs['key']
+        self.redis.set(key + '-filename', filename)
+        f = open(filename, 'wb')
+        f.write(cherrypy.request.body.read())
+        f.close
 
 
 cherrypy.quickstart(App(), '/',
