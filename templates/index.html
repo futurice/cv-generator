@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Futurice CV Generator</title>
+  </head>
+  <body>
+    <div class="row column">
+      <h1>Futurice CV Generator</h1>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 columns">
+        <div>
+          <label>Name<input name="name" type="text"></label>
+          <label>Title<input name="title" type="text"></label>
+          <label>Keywords (separate by comma)<input name="keywords" type="text"></label>
+          <label>Intro text<textarea rows="8" id="intro-text"></textarea></label>
+          <h3>Experiences</h3>
+          <div id="experiences-holder">
+            <label>Title<input type="text" name="title[]"></label>
+            <label>Company and Time<input type="text" name="companyAndTime[]"></label>
+          </div>
+          <button class="button small" id="add-experience">Add another Experience</button>
+          <h3>Educations</h3>
+          <div id="educations-holder">
+            <label>Place<input type="text" name="place[]"></label>
+            <label>Degree<input type="text" name="degree[]"></label>
+            <label>Time<input type="text" name="time[]"></label>
+          </div>
+          <button class="button small" id="add-education">Add another Education</button>
+          <h3>Social</h3>
+          <label>Email<input type="text" name="email"></label>
+          <label>Twitter<input type="text" name="twitter"></label>
+          <label>LinkedIn<input type="text" name="linkedin"></label>
+        </div>
+        <button class="button" id="update">update</button>
+      </div>
+
+      <div class="small-12 medium-6 columns">
+        <img id="preview">
+      </div>
+    </div>
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>

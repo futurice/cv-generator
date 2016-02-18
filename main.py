@@ -3,23 +3,28 @@
 import cherrypy
 import weasyprint
 from jinja2 import Template, FileSystemLoader, Environment
+from base64 import b64encode
+import os
 
 class App(object):
+
+    def __init__(self):
+        loader = FileSystemLoader('templates')
+        self.templateEnv = Environment(loader =  loader)
+
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
     def cv(self, **kwargs):
-        loader = FileSystemLoader('templates')
-        templateEnv = Environment(loader =  loader)
         data = cherrypy.request.json
         isPng = kwargs['type'] == 'png'
-        print(data['keywords'])
+        doBase64 = kwargs.get('base64') != None
         if (isPng):
             responseType = 'application/png'
         else:
             responseType = 'application/pdf'
 
         cherrypy.response.headers['Content-Type'] = responseType
-        template = templateEnv.get_template('cv.html')
+        template = self.templateEnv.get_template('cv.html')
         style = weasyprint.CSS(string = """
         .pic {
           position: absolute;
@@ -127,9 +132,28 @@ class App(object):
         """)
         doc = weasyprint.HTML(base_url=".", string = template.render(data))
         if isPng:
-            return doc.write_png(target=None, stylesheets=[style])
+            bytes = doc.write_png(target=None, stylesheets=[style])
         else:
-            return doc.write_pdf(target=None, stylesheets=[style])
-    # cv.exposed = True
+            bytes =  doc.write_pdf(target=None, stylesheets=[style])
 
-cherrypy.quickstart(App())
+        if doBase64:
+            return b64encode(bytes)
+        else:
+            return bytes
+
+    @cherrypy.expose('')
+    def index(self):
+        return self.templateEnv.get_template('index.html').render()
+
+
+cherrypy.quickstart(App(), '/',
+                    {'/style.css':
+                     {'tools.staticfile.on': True,
+                      'tools.staticfile.filename': os.getcwd() + '/style.css'
+                     },
+                     '/index.js':
+                     {'tools.staticfile.on': True,
+                      'tools.staticfile.filename': os.getcwd() + '/index.js'
+                     }
+
+                    })
