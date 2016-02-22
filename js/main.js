@@ -3,6 +3,7 @@ import foundation from 'foundation-sites';
 
 $(document).foundation();
 
+
 $('#add-experience').click(() => {
     $('#experiences-holder').append('\
             <label>Title<input type="text" name="title[]"></label>\
@@ -84,3 +85,15 @@ $('#file-upload').change(function () {
 });
 
 updateImage();
+
+function debounce(f, ms) {
+    let timeoutId = null;
+    return function() {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(f, ms);
+    };
+}
+
+const debouncedUpdateImage = debounce(updateImage, 500);
+
+$(document).keypress(debouncedUpdateImage);
