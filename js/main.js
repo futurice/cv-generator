@@ -82,7 +82,7 @@ $('#file-upload').change(function () {
             contentType: file.type,
             data: reader.result,
             processData: false
-        });
+        }).done(updateImage);
     };
     reader.readAsArrayBuffer(file);
 });
