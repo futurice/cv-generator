@@ -62,6 +62,10 @@ class App(object):
           padding-right: 200px;
         }
 
+        .intro-texts {
+          min-height: 220px;
+        }
+
         .experience {
           float: left;
           width: 442px;

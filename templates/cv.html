@@ -11,15 +11,26 @@
           {% for keyword in keywords %}
           <li>{{keyword}}</li>
           {% endfor %}
+          {% if not keywords or not keywords[0] %}
+          <li> Phasellus purus. </li>
+          <li>Curabitur vestibulum lorem.  </li>
+          <li>Phasellus ligula ultricies.  </li>
+          {% endif %}
         </ul>
       </div>
     </div>
     <div class="right-pane">
-      <h1 class="name">{{name}}</h1>
-      <h2 class="title">{{title}}</h2>
-      {% for introChapter in intro %}
-      <p class="intro-text">{{introChapter}}</p>
-      {% endfor %}
+      <h1 class="name">{{name | default('Lorem Ipsum', true)}}</h1>
+      <h2 class="title">{{title | default('Dolor Sit', true)}}</h2>
+      <div class="intro-texts">
+        {% for introChapter in intro %}
+        <p class="intro-text">{{introChapter}}</p>
+        {% endfor %}
+        {% if not intro or not intro[0] %}
+        <p class="intro-text">Pellentesque dapibus suscipit ligula.  Donec posuere augue in quam.  Etiam vel tortor sodales tellus ultricies commodo.  Suspendisse potenti.  Aenean in sem ac leo mollis blandit.  Donec neque quam, dignissim in, mollis nec, sagittis eu, wisi.</p>
+        <p class="intro-text">Integer placerat tristique nisl.  Praesent augue.  Fusce commodo.  Vestibulum convallis, lorem a tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.</p>
+        {% endif %}
+      </div>
       <div class="experience">
         <h3>Experience</h3>
         <dl>
@@ -28,6 +39,13 @@
           <dd>{{experience.companyAndTime}}</dd>
           {% if not loop.last%}<span>—</span>{% endif %}
           {% endfor %}
+          {% if not experiences or not experiences[0].title %}
+          <dt>Vestibulum Convallis</dt>
+          <dd>Aliquam Erat 2000-2100</dd>
+          <span>—</span>
+          <dt>Nullam Rutrum</dt>
+          <dd>Vivamus Id Enim 1234-4321</dd>
+          {% endif %}
         </dl>
       </div>
       <div class="education">
@@ -39,10 +57,19 @@
           <dd>{{education.time}}</dd>
           {% if not loop.last%}<span>—</span>{% endif %}
           {% endfor %}
+          {% if not educations or not educations[0].place %}
+          <dt>Amet Elit</dt>
+          <dd>Nunc Justo</dd>
+          <dd>2020-2030</dd>
+          <span>—</span>
+          <dt>Nullam Libero</dt>
+          <dd>Consequat Quis</dd>
+          <dd>2030-2035</dd>
+          {% endif %}
         </dl>
       </div>
       <div class="social">
-        <span class="email">{{social.email}}</span>
+        <span class="email">{{social.email | default('email@address', true) }}</span>
         {% if social.twitter %}<span class="twitter">{{social.twitter}}</span>{% endif %}
         {% if social.linkedin %}<span>{{social.linkedin}}</span>{% endif %}
       </div>
