@@ -13,6 +13,7 @@
 
     <div class="row">
       <div class="small-12 medium-6 columns">
+        <h2>Data input</h2>
         <div>
           <label>Name<input name="name" type="text" value="{{name}}"></label>
           <label>Title<input name="title" type="text" value="{{title}}"></label>
@@ -43,11 +44,15 @@
           <label for="file-upload" class="button">Upload Image</label>
           <input type="file" id="file-upload" class="show-for-sr">
         </div>
-        <button class="button" id="update">Update CV</button>
       </div>
 
       <div class="small-12 medium-6 columns">
+        <h2>Preview</h2>
         <img id="preview">
+        <ul class="horizontal menu downloads">
+          <li><a id="download-png" class="button">Download PNG</a></li>
+          <li><a id="download-pdf" class="button">Download PDF</a></li>
+        </ul>
       </div>
     </div>
     <script type="text/javascript" src="index.js"></script>

@@ -1,5 +1,12 @@
 @import 'util/util';
 
+.menu.downloads {
+  margin-top: 10px;
+  li a {
+    margin-right: 10px;
+  }
+}
+
 @import 'foundation';
 
 @include foundation-global-styles;

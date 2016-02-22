@@ -18,9 +18,7 @@ $('#add-education').click(() => {
 });
 
 const getKey = () => document.location.search.substr(1).split('=')[1];
-
-const updateImage = () => {
-
+const downloadImage = () => {
     const titles = $('input[name="title[]"]').map(function () { return $(this).val(); }).get();
     const companiesAndTimes = $('input[name="companyAndTime[]"]').map(function () { return $(this).val(); }).get();
 
@@ -50,6 +48,7 @@ const updateImage = () => {
     Object.assign(social, linkedin.length > 0 ? {'linkedin': linkedin} : {});
 
     const key = getKey();
+
     return $.ajax('/cv?type=png&base64&key=' + key, {
         type: "POST",
         contentType: "application/json",
@@ -62,7 +61,11 @@ const updateImage = () => {
              "educations": educations,
              "social": social
             })
-    }).done((resp) => $("#preview").attr('src', 'data:image/png;base64,' + resp));
+    });
+};
+const updateImage = () => {
+
+    downloadImage(true).done((resp) => $("#preview").attr('src', 'data:image/png;base64,' + resp));
 };
 
 $('#update').click(updateImage);
@@ -93,6 +96,9 @@ function debounce(f, ms) {
         timeoutId = setTimeout(f, ms);
     };
 }
+
+$('#download-png').attr('href', '/cv?type=png&key=' + getKey());
+$('#download-pdf').attr('href', '/cv?type=pdf&key=' + getKey());
 
 const debouncedUpdateImage = debounce(updateImage, 500);
 

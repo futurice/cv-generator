@@ -19,7 +19,6 @@ class App(object):
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
     def cv(self, **kwargs):
-        data = cherrypy.request.json
         isPng = kwargs['type'] == 'png'
         doBase64 = kwargs.get('base64') != None
         if (isPng):
@@ -29,7 +28,11 @@ class App(object):
 
 
         key = kwargs['key']
-        self.redis.set(key, json.dumps(data))
+        try:
+            data = cherrypy.request.json
+            self.redis.set(key, json.dumps(data))
+        except AttributeError:
+            data = self.getData(key)
         savedFilenameMaybe = self.redis.get(key + '-filename')
 
         if savedFilenameMaybe != None:
@@ -154,6 +157,13 @@ class App(object):
         else:
             bytes =  doc.write_pdf(target=None, stylesheets=[style])
 
+        if isPng:
+            extension = 'png'
+        else:
+            extension = 'pdf'
+
+        cherrypy.response.headers['Content-Disposition'] = 'attachment; filename=cv.' + extension + ';'
+
         if doBase64:
             return b64encode(bytes)
         else:
@@ -166,6 +176,11 @@ class App(object):
         except KeyError:
             raise cherrypy.HTTPRedirect('/?key=%08x' % random.getrandbits(32))
 
+        data = self.getData(key)
+
+        return self.templateEnv.get_template('index.html').render(data)
+
+    def getData(self, key):
         s = self.redis.get(key)
 
         if s == None:
@@ -173,7 +188,8 @@ class App(object):
         else:
             data = json.loads(s.decode('utf-8'))
 
-        return self.templateEnv.get_template('index.html').render(data)
+        return data
+
 
     @cherrypy.expose('upload')
     def upload(self, **kwargs):
