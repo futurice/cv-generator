@@ -82,6 +82,7 @@ class App(object):
 
         .social {
           position: fixed;
+          font-family: Sharp Sans No1 Bold;
           width: 472px;
           bottom: 50px;
           left: 1248px;
@@ -112,6 +113,7 @@ class App(object):
 
         .keywords {
           position: absolute;
+          font-family: Sharp Sans No1 Bold;
           left: 50%;
           margin-right: -50%;
           transform: translate(-50%, 0);
@@ -119,6 +121,7 @@ class App(object):
           background-color: #C4E2D9;
           padding-left: 10px;
           padding-right: 30px;
+          min-width: 350px;
         }
 
         h1.name {
@@ -129,12 +132,12 @@ class App(object):
         }
 
         .title {
-          margin-top: 0;
+          margin-top: 15px;
         }
 
         h1, h2, h3 {
           font-family: Sharp Sans No1 Black;
-          letter-spacing: 1px;
+          letter-spacing: 2px;
         }
 
         h3 {
@@ -144,6 +147,7 @@ class App(object):
         body {
           font-family: Sharp Sans No1 Medium;
           font-size: 30px;
+          line-height: 1.2em;
         }
 
         @page {
