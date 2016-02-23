@@ -14,7 +14,7 @@ class App(object):
     def __init__(self):
         loader = FileSystemLoader('templates')
         self.templateEnv = Environment(loader =  loader)
-        self.redis = redis.Redis(host="localhost")
+        self.redis = redis.Redis(host=os.environ.get("REDIS_HOST", "localhost"))
 
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
