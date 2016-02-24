@@ -22,5 +22,10 @@ RUN source py2env/bin/activate && npm install
 COPY . /usr/src/app/
 RUN npm run build-js && npm run build-sass
 
+# deploy fonts
+RUN mkdir -p /usr/share/fonts/local
+COPY ./fonts/* /usr/share/fonts/local/
+RUN fc-cache /usr/share/fonts/local
+
 # set up runtime
 CMD ["sh", "-c", "source py3env/bin/activate && python main.py"]
