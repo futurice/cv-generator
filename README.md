@@ -21,3 +21,5 @@ To run in Docker, place the required font files in the `fonts` directory and run
 ```
 $ docker-compose up
 ```
+
+Then check the output of `docker-compose port futucv 8080` to see what external port was allocated.
