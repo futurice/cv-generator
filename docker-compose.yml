@@ -1,0 +1,13 @@
+version: "2"
+services:
+  futucv:
+    build: .
+    ports:
+      - 8080
+    links:
+      - redis
+    environment:
+      REDIS_HOST: redis
+  redis:
+    image: redis:3.0-alpine
+
