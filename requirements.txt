@@ -1,4 +1,4 @@
 WeasyPrint
 cherrypy
 jinja2
-redis
+psycopg2

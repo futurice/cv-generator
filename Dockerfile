@@ -2,7 +2,7 @@ FROM alpine:3.3
 MAINTAINER Ilkka Laukkanen <ilkka.laukkanen@futurice.com>
 
 # compiler and libs required to install pypi packages
-RUN apk --no-cache add build-base python python-dev python3 python3-dev py-virtualenv ca-certificates libffi-dev libxml2-dev libxslt-dev nodejs cairo-dev pango-dev
+RUN apk --no-cache add build-base python python-dev python3 python3-dev py-virtualenv ca-certificates libffi-dev libxml2-dev libxslt-dev nodejs cairo-dev pango-dev postgresql libpq postgresql-dev
 
 # set up work area
 RUN mkdir -p /usr/src/app
@@ -26,6 +26,9 @@ RUN npm run build-js && npm run build-sass
 RUN mkdir -p /usr/share/fonts/local
 COPY ./fonts/* /usr/share/fonts/local/
 RUN fc-cache /usr/share/fonts/local
+
+# expose port
+EXPOSE 8080
 
 # set up runtime
 CMD ["sh", "-c", "source py3env/bin/activate && python main.py"]

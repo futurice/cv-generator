@@ -73,11 +73,12 @@ $('#update').click(updateImage);
 $('#file-upload').change(function () {
     const file = this.files[0];
     let reader = new FileReader();
+
     const suffix = file.type === 'image/png' ? '.png' : (file.type === 'image/jpg' || file.type === 'image/jpeg') ? '.jpg' : '';
     if (suffix.length === 0) throw new Error("Only .png and .jpg are supported");
 
     reader.onloadend = () => {
-        $.ajax('/upload?filename=' + getKey() + suffix + '&key=' + getKey(), {
+        $.ajax('/upload?mimetype=' + file.type + '&key=' + getKey(), {
             type: 'POST',
             contentType: file.type,
             data: reader.result,

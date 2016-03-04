@@ -5,16 +5,59 @@ import weasyprint
 from jinja2 import Template, FileSystemLoader, Environment
 from base64 import b64encode
 import os
-import redis
 import json
 import random
+import psycopg2
+import base64
 
 class App(object):
 
     def __init__(self):
         loader = FileSystemLoader('templates')
         self.templateEnv = Environment(loader =  loader)
-        self.redis = redis.Redis(host=os.environ.get("REDIS_HOST", "localhost"))
+        connString = os.environ.get("POSTGRES_CONNECTION", "dbname=postgres user=postgres")
+        self.conn = psycopg2.connect(connString)
+        self.conn.autocommit = True
+        self.cur = self.conn.cursor()
+        self.cur.execute('CREATE TABLE IF NOT EXISTS cvdata (key TEXT PRIMARY KEY, data JSON, picmimetype varchar(15), pic bytea);')
+
+
+    def getData(self, key):
+        self.cur.execute('SELECT data FROM cvdata WHERE key = %s', (key, ))
+        s = self.cur.fetchone()
+
+        if s == None or s[0] == None:
+            data = {'social': {}}
+        else:
+            data = s[0]
+
+        return data
+
+    def ensureKey(self, key):
+        try:
+            self.cur.execute('INSERT INTO cvdata (key) values (%s)', (key, ))
+        except psycopg2.IntegrityError:
+            pass
+
+    def setData(self, key, data):
+        self.ensureKey(key)
+        self.cur.execute('UPDATE cvdata SET data = %s WHERE key = %s', (data, key))
+
+
+    def getPic(self, key):
+        self.cur.execute('SELECT picmimetype, pic FROM cvdata where key = %s', (key, ))
+        mimetype, picBytes = self.cur.fetchone()
+        if mimetype == None:
+            return None
+        else:
+            foo =  'data:%s;base64,%s' % (mimetype, base64.b64encode(picBytes).decode('utf-8'))
+            print(foo[0:100])
+            return foo
+
+
+    def setPic(self, key, picMimeType, picBytes):
+        self.ensureKey(key)
+        self.cur.execute('UPDATE cvdata SET picmimetype = %s, pic = %s WHERE key = %s', (picMimeType, picBytes, key))
 
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
@@ -28,15 +71,16 @@ class App(object):
 
 
         key = kwargs['key']
-        try:
+        try: # get from request and persist if request contains, otherwise get from db
             data = cherrypy.request.json
-            self.redis.set(key, json.dumps(data))
+            self.setData(key, json.dumps(data))
         except AttributeError:
             data = self.getData(key)
-        savedFilenameMaybe = self.redis.get(key + '-filename')
 
-        if savedFilenameMaybe != None:
-            data['image'] = savedFilenameMaybe.decode('utf-8')
+        savedPicDataUri = self.getPic(key)
+
+        if savedPicDataUri != None:
+            data['image'] = savedPicDataUri
         else:
             data['image'] = 'placeholder.jpg'
 
@@ -184,25 +228,11 @@ class App(object):
 
         return self.templateEnv.get_template('index.html').render(data)
 
-    def getData(self, key):
-        s = self.redis.get(key)
-
-        if s == None:
-            data = {'social': {}}
-        else:
-            data = json.loads(s.decode('utf-8'))
-
-        return data
-
 
     @cherrypy.expose('upload')
     def upload(self, **kwargs):
-        filename = 'uploads/' + kwargs['filename']
         key = kwargs['key']
-        self.redis.set(key + '-filename', filename)
-        f = open(filename, 'wb')
-        f.write(cherrypy.request.body.read())
-        f.close
+        self.setPic(key, kwargs['mimetype'], cherrypy.request.body.read())
 
 
 cherrypy.quickstart(App(), '/',
