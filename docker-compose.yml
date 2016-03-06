@@ -5,9 +5,10 @@ services:
     ports:
       - 8080
     links:
-      - redis
+      - db
     environment:
-      REDIS_HOST: redis
-  redis:
-    image: redis:3.0-alpine
+    environment:
+      POSTGRES_CONNECTION: "dbname=postgres user=postgres host=db"
+  db:
+    image: kiasaki/alpine-postgres
 

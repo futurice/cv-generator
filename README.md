@@ -1,8 +1,10 @@
 # Futurice CV Generator
 
+Note, this repository contains copies of some Sharp Sans fonts. Add your machine to https://inventory.futurice.com/inventory/license/546 if you didn't already have them installed.
+
 ## Running locally
 
-To run, you need Python 3 and Redis. In a Python virtualenv do
+To run, you need Python 3 and Postgresql. In a Python virtualenv do
 
 ```
 $ pip install -r requirements.txt
@@ -16,7 +18,7 @@ And open http://localhost:8080 in a browser
 
 ## Running in Docker
 
-To run in Docker, place the required font files in the `fonts` directory and run
+To run in Docker, install Docker with Docker Compose and run
 
 ```
 $ docker-compose up
