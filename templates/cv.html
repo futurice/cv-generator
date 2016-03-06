@@ -69,9 +69,12 @@
         </dl>
       </div>
       <div class="social">
-        <span class="email">{{social.email | default('email@address', true) }}</span>
-        {% if social.twitter %}<span class="twitter">{{social.twitter}}</span>{% endif %}
-        {% if social.linkedin %}<span>{{social.linkedin}}</span>{% endif %}
+        {% for social in socials %}
+        <span>{{social}}</span>
+        {% endfor %}
+        {% if not socials %}
+        <span>lorem.ipsum@example.com</span>
+        {% endif %}
       </div>
     </div>
   </body>

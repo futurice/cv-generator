@@ -36,10 +36,13 @@
             {% endfor %}
           </div>
           <button class="button small" id="add-education">Add Education</button>
-          <h3>Social</h3>
-          <label>Email<input type="text" name="email" value="{{social['email']}}"></label>
-          <label>Twitter<input type="text" name="twitter" value="{{social['twitter']}}"></label>
-          <label>LinkedIn<input type="text" name="linkedin" value="{{social['linkedin']}}"></label>
+          <h3>Social (email, twitter, linkedin, etc)</h3>
+          <div id="social-holder">
+            {% for social in socials %}
+            <input type="text" name="social[]" value="{{social}}">
+            {% endfor %}
+          </div>
+          <button class="button small" id="add-social">Add Social</button>
           <h3>Upload image (it has to be 726x1080)</h3>
           <label for="file-upload" class="button">Upload Image</label>
           <input type="file" id="file-upload" class="show-for-sr">

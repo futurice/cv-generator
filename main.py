@@ -27,7 +27,7 @@ class App(object):
         s = self.cur.fetchone()
 
         if s == None or s[0] == None:
-            data = {'social': {}}
+            data = {}
         else:
             data = s[0]
 

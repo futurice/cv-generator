@@ -17,6 +17,10 @@ $('#add-education').click(() => {
             <label>Time<input type="text" name="time[]"></label>');
 });
 
+$('#add-social').click(() => {
+    $('#social-holder').append('<input type="text" name="social[]">');
+});
+
 const getKey = () => document.location.search.substr(1).split('=')[1];
 const downloadImage = () => {
     const titles = $('input[name="title[]"]').map(function () { return $(this).val(); }).get();
@@ -36,16 +40,7 @@ const downloadImage = () => {
         educations.push({'place': places[i], "degree": degrees[i], 'time': times[i]});
     }
 
-    let social = {};
-
-    let email = $('input[name="email"]').val();
-    Object.assign(social, email.length > 0 ? {'email': email} : {});
-
-    let twitter = $('input[name="twitter"]').val();
-    Object.assign(social, twitter.length > 0 ? {'twitter': twitter} : {});
-
-    let linkedin = $('input[name="linkedin"]').val();
-    Object.assign(social, linkedin.length > 0 ? {'linkedin': linkedin} : {});
+    const social = $('input[name="social[]"]').map(function () { return $(this).val(); }).get();
 
     const key = getKey();
 
@@ -59,13 +54,12 @@ const downloadImage = () => {
              "intro": $('#intro-text').val().split('\n\n'),
              "experiences": experiences,
              "educations": educations,
-             "social": social
+             "socials": social
             })
     });
 };
 const updateImage = () => {
-
-    downloadImage(true).done((resp) => $("#preview").attr('src', 'data:image/png;base64,' + resp));
+    downloadImage().done((resp) => $("#preview").attr('src', 'data:image/png;base64,' + resp));
 };
 
 $('#update').click(updateImage);
