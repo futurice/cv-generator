@@ -2,7 +2,7 @@ FROM alpine:3.3
 MAINTAINER Ilkka Laukkanen <ilkka.laukkanen@futurice.com>
 
 # compiler and libs required to install pypi packages
-RUN apk --no-cache add build-base python python-dev python3 python3-dev py-virtualenv ca-certificates libffi-dev libxml2-dev libxslt-dev nodejs cairo-dev pango-dev postgresql libpq postgresql-dev gdk-pixbuf gdk-pixbuf-dev
+RUN apk --no-cache add build-base python python-dev python3 python3-dev py-virtualenv ca-certificates libffi-dev libxml2-dev libxslt-dev nodejs cairo-dev pango-dev postgresql libpq postgresql-dev gdk-pixbuf gdk-pixbuf-dev libjpeg-turbo libjpeg-turbo-dev
 
 # set up work area
 RUN mkdir -p /usr/src/app
