@@ -1,1 +1,1 @@
-# NOTE: this repository is public! No confidential information, included in screenshots allowed.
+# NOTE: this repository is public! No confidential information (not even in screenshots) allowed.
