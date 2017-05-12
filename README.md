@@ -1,6 +1,6 @@
 # Futurice CV Generator
 
-Note, this repository contains copies of some Sharp Sans fonts. Add your machine to https://inventory.futurice.com/inventory/license/546 if you didn't already have them installed.
+Note, you need to add copies of some Sharp Sans fonts under `fonts/` to use with Docker or have them installed in your system font storage for usage locally.
 
 ## Running locally
 
