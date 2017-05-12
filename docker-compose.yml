@@ -10,5 +10,5 @@ services:
     environment:
       POSTGRES_CONNECTION: "dbname=postgres user=postgres host=db"
   db:
-    image: kiasaki/alpine-postgres
+    image: kiasaki/alpine-postgres:9.5
 
