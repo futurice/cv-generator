@@ -1,0 +1,2 @@
+You need to copy font files to this directory so they get installed inside the
+Docker image.
