@@ -16,6 +16,7 @@ class App(object):
         loader = FileSystemLoader('templates')
         self.templateEnv = Environment(loader =  loader)
         connString = os.environ.get("POSTGRES_CONNECTION", "dbname=postgres user=postgres")
+        self.baseUrl = os.environ.get("BASE_URL", "")
         self.conn = psycopg2.connect(connString)
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
@@ -222,7 +223,7 @@ class App(object):
         try:
             key = kwargs['key']
         except KeyError:
-            raise cherrypy.HTTPRedirect('/?key=%08x' % random.getrandbits(32))
+            raise cherrypy.HTTPRedirect('%s/?key=%08x' % (self.baseUrl, random.getrandbits(32)))
 
         data = self.getData(key)
 
