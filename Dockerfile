@@ -28,7 +28,7 @@ COPY ./fonts/* /usr/share/fonts/local/
 RUN fc-cache /usr/share/fonts/local
 
 # expose port
-EXPOSE 8080
+EXPOSE 8000
 
 # set up runtime
 CMD ["sh", "-c", "source py3env/bin/activate && python main.py"]

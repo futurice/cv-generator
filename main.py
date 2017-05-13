@@ -245,6 +245,7 @@ cherrypy.quickstart(App(), '/',
                       'tools.staticfile.filename': os.getcwd() + '/index.js'
                      },
                      'global': {
-                         'server.socket_host': '0.0.0.0'
+                         'server.socket_host': '0.0.0.0',
+                         'server.socket_port': 8000
                      }
                     })
