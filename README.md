@@ -2,6 +2,12 @@
 
 Note, you need to add copies of some Sharp Sans fonts under `fonts/` to use with Docker or have them installed in your system font storage for usage locally.
 
+## Sample CV 
+This tool can generate a C.V. that looks like the following. In both PDF or PNG formats. 
+
+![cv 1](https://cloud.githubusercontent.com/assets/7697632/26059407/5ec64372-398a-11e7-95cc-8090a47076c3.png)
+
+
 ## Running locally
 
 To run, you need Python 3 and Postgresql. In a Python virtualenv do
