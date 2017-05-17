@@ -1,0 +1,11 @@
+# Weights
+- 100 Hairline
+- 150 UltraThin
+- 200 Thin
+- 300 Light
+- 400 Regualr
+- 500 Medium
+- 600 SemiBold
+- 700 Bold
+- 800 ExtraBold
+- 900 Black

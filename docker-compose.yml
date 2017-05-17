@@ -3,12 +3,10 @@ services:
   futucv:
     build: .
     ports:
-      - 8080
+      - "8080:8000"
     links:
       - db
-    environment:
     environment:
       POSTGRES_CONNECTION: "dbname=postgres user=postgres host=db"
   db:
     image: kiasaki/alpine-postgres:9.5
-
