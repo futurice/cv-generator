@@ -4,7 +4,7 @@ import foundation from 'foundation-sites';
 $(document).foundation();
 
 
-$('#add-experience').click(() => {
+/*$('#add-experience').click(() => {
     $('#experiences-holder').append('\
             <label>Title<input type="text" name="title[]"></label>\
             <label>Company and Time<input type="text" name="companyAndTime[]"></label>');
@@ -91,7 +91,7 @@ function debounce(f, ms) {
         timeoutId = setTimeout(f, ms);
     };
 }
-
+*/
 $('#download-png').attr('href', '/cv?type=png&key=' + getKey());
 $('#download-pdf').attr('href', '/cv?type=pdf&key=' + getKey());
 
