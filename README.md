@@ -1,14 +1,13 @@
 # Futurice CV Generator
-
-Note, you need to add copies of some Sharp Sans fonts under `fonts/` to use with Docker or have them installed in your system font storage for usage locally.
+This is a standalone web app, that can be used to generate CVs. It has a simple user interface where users can insert information, and download the generated CV in PDF or PNG formats. 
+This tool also saves all the CVs into a database and assigns permanent links to them, so that they can be updated later.  
 
 ## Sample CV 
-This tool can generate a C.V. that looks like the following. In both PDF or PNG formats. 
+This tool can generate a CV that looks like the following. In both PDF or PNG formats. 
 
 ![cv 1](https://cloud.githubusercontent.com/assets/7697632/26059407/5ec64372-398a-11e7-95cc-8090a47076c3.png)
 
-
-## Running locally
+## Install
 
 To run, you need Python 3 and Postgresql. In a Python virtualenv do
 
@@ -20,9 +19,14 @@ $ npm run build-sass
 $ python main.py
 ```
 
-And open http://localhost:8080 in a browser
+And open http://localhost:8080 in a browser. It should look like this:
+![cv-generator-how-it-works](https://cloud.githubusercontent.com/assets/7697632/26311439/f9b9b5b2-3f0c-11e7-893b-92d431b29de4.png)
 
-## Running in Docker
+
+### Fonts 
+Note: you need to add copies of some Sharp Sans fonts under `fonts/` to use with Docker or have them installed in your system font storage for usage locally. For copyright reasons the fonts are not included. 
+
+### Running in Docker
 
 To run in Docker, install Docker with Docker Compose and run
 
