@@ -31,7 +31,7 @@ $('#add-social').click(() => {
 });
 
 
-$('#data-input').on('click', '.remove', function(){
+$('#data-input').on('click', '.remove', function(){ //Handler for all remove buttons created dynamically
     $(this).parent().remove();
     updateImage();
 });
