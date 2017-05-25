@@ -1,12 +1,4 @@
 @import 'util/util';
-
-.menu.downloads {
-  margin-top: 10px;
-  li a {
-    margin-right: 10px;
-  }
-}
-
 @import 'foundation';
 
 @include foundation-global-styles;
@@ -44,3 +36,18 @@
 @include foundation-title-bar;
 @include foundation-tooltip;
 @include foundation-top-bar;
+
+.menu.downloads {
+  margin-top: 10px;
+  li a {
+    margin-right: 10px;
+  }
+}
+
+.remove{
+  float: right;
+}
+
+.entry:not(:first-child), .add{
+  margin-top: 5em;
+}
