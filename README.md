@@ -34,7 +34,7 @@ To run in Docker, install Docker with Docker Compose and run
 $ docker-compose up
 ```
 
-Then check the output of `docker-compose port futucv 8080` to see what external port was allocated.
+Then check the output of `docker-compose port futucv 8000` to see what external port was allocated.
 
 ## License
 
