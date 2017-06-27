@@ -9,9 +9,22 @@ This tool can generate a CV that looks like the following. In both PDF or PNG fo
 
 ## Install
 
-To run, you need Python 3 and Postgresql. In a Python virtualenv do
+To run, you need Python 3 and Postgresql.
+
+To create a default database for development, do
 
 ```
+$ sudo -u postgres psql
+postgres=# create database cvgenerator;
+postgres=# create user cvgenerator;
+postgres=# grant all privileges on database cvgenerator to cvgenerator;
+```
+
+To install requirements, build, and start up, do
+
+```
+$ virtualenv virtualenv
+$ source virtualenv/bin/activate
 $ pip install -r requirements.txt
 $ npm install
 $ npm run build-js
@@ -34,7 +47,7 @@ To run in Docker, install Docker with Docker Compose and run
 $ docker-compose up
 ```
 
-Then check the output of `docker-compose port futucv 8000` to see what external port was allocated.
+Then check the output of `docker-compose port futucv 8000` to see what external port was allocated. Run `docker-compose build` to rebuild after making changes.
 
 ## License
 

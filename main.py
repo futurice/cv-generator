@@ -15,7 +15,7 @@ class App(object):
     def __init__(self):
         loader = FileSystemLoader('templates')
         self.templateEnv = Environment(loader =  loader)
-        connString = os.environ.get("POSTGRES_CONNECTION", "dbname=postgres user=postgres")
+        connString = os.environ.get("POSTGRES_CONNECTION", "dbname=cvgenerator user=cvgenerator")
         self.baseUrl = os.environ.get("BASE_URL", "")
         self.conn = psycopg2.connect(connString)
         self.conn.autocommit = True
