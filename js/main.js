@@ -3,22 +3,37 @@ import foundation from 'foundation-sites';
 
 $(document).foundation();
 
-
 $('#add-experience').click(() => {
     $('#experiences-holder').append('\
-            <label>Title<input type="text" name="title[]"></label>\
-            <label>Company and Time<input type="text" name="companyAndTime[]"></label>');
+            <div class="entry">\
+              <label>Title<input type="text" name="title[]"></label>\
+              <label>Company and Time<input type="text" name="companyAndTime[]"></label>\
+              <button class="button remove alert small">Remove Experience</button>\
+            </div>');
 });
 
 $('#add-education').click(() => {
     $('#educations-holder').append('\
-            <label>Place<input type="text" name="place[]"></label>\
-            <label>Degree<input type="text" name="degree[]"></label>\
-            <label>Time<input type="text" name="time[]"></label>');
+            <div class="entry">\
+              <label>Place<input type="text" name="place[]"></label>\
+              <label>Degree<input type="text" name="degree[]"></label>\
+              <label>Time<input type="text" name="time[]"></label>\
+              <button class="button remove alert small">Remove Education</button>\
+            </div>');
 });
 
 $('#add-social').click(() => {
-    $('#social-holder').append('<input type="text" name="social[]">');
+    $('#social-holder').append('\
+              <div class="entry">\
+                <input type="text" name="social[]">\
+                <button class="button remove alert small">Remove Social</button>\
+              </div>');
+});
+
+
+$('#data-input').on('click', '.remove', function(){ //Handler for all remove buttons created dynamically
+    $(this).parent().remove();
+    updateImage();
 });
 
 const getKey = () => document.location.search.substr(1).split('=')[1];

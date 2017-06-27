@@ -22,27 +22,36 @@
           <h3>Experiences</h3>
           <div id="experiences-holder">
             {% for experience in experiences %}
-            <label>Title<input type="text" name="title[]" value="{{experience['title']}}"></label>
-            <label>Company and Time<input type="text" name="companyAndTime[]" value="{{experience['companyAndTime']}}"></label>
+              <div class="entry">
+                <label>Title<input type="text" name="title[]" value="{{experience['title']}}"></label>
+                <label>Company and Time<input type="text" name="companyAndTime[]" value="{{experience['companyAndTime']}}"></label>
+                <button class="button remove alert small">Remove Experience</button>
+              </div>
             {% endfor %}
           </div>
-          <button class="button small" id="add-experience">Add Experience</button>
+          <button class="button add small" id="add-experience">Add Experience</button>
           <h3>Educations</h3>
           <div id="educations-holder">
             {% for education in educations %}
-            <label>Place<input type="text" name="place[]" value="{{education['place']}}"></label>
-            <label>Degree<input type="text" name="degree[]" value="{{education['degree']}}"></label>
-            <label>Time<input type="text" name="time[]" value="{{education['time']}}"></label>
+              <div class="entry">
+                <label>Place<input type="text" name="place[]" value="{{education['place']}}"></label>
+                <label>Degree<input type="text" name="degree[]" value="{{education['degree']}}"></label>
+                <label>Time<input type="text" name="time[]" value="{{education['time']}}"></label>
+                <button class="button remove alert small">Remove Education</button>
+              </div>
             {% endfor %}
           </div>
-          <button class="button small" id="add-education">Add Education</button>
+          <button class="button add small" id="add-education">Add Education</button>
           <h3>Social (email, twitter, linkedin, etc)</h3>
           <div id="social-holder">
             {% for social in socials %}
-            <input type="text" name="social[]" value="{{social}}">
+              <div class="entry">
+                <input type="text" name="social[]" value="{{social}}">
+                <button class="button remove alert small">Remove Social</button>
+              </div>
             {% endfor %}
           </div>
-          <button class="button small" id="add-social">Add Social</button>
+          <button class="button add small" id="add-social">Add Social</button>
           <h3>Upload image (it has to be 726x1080)</h3>
           <label for="file-upload" class="button">Upload Image</label>
           <input type="file" id="file-upload" class="show-for-sr">
