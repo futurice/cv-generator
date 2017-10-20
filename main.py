@@ -117,7 +117,7 @@ class App(object):
         .social {
           position: fixed;
           font-family: Futurice Bold;
-          width: 472px;
+          width: 100%;
           bottom: 50px;
           left: 50px;
         }
