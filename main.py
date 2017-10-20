@@ -181,7 +181,7 @@ class App(object):
           height: 5000px;
           transform: rotate(30deg);
           position: fixed;
-          left: 300px;
+          left: 200px;
           top: 0;
         }
 
