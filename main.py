@@ -99,6 +99,13 @@ class App(object):
           margin: 0;
         }
 
+        .logo {
+          width: 120px;
+          position: fixed;
+          left: 850px;
+          bottom: 50px;
+        }
+
         .intro-texts {
           min-height: 220px;
         }
@@ -117,7 +124,7 @@ class App(object):
         .social {
           position: fixed;
           font-family: Futurice Bold;
-          width: 100%;
+          width: 800px;
           bottom: 50px;
           left: 50px;
         }
