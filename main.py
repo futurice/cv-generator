@@ -19,13 +19,16 @@ class App(object):
         self.baseUrl = os.environ.get("BASE_URL", "")
         self.conn = psycopg2.connect(connString)
         self.conn.autocommit = True
-        self.cur = self.conn.cursor()
-        self.cur.execute('CREATE TABLE IF NOT EXISTS cvdata (key TEXT PRIMARY KEY, data JSON, picmimetype varchar(15), pic bytea);')
+        cur = self.getCursor()
+        cur.execute('CREATE TABLE IF NOT EXISTS cvdata (key TEXT PRIMARY KEY, data JSON, picmimetype varchar(15), pic bytea);')
 
 
-    def getData(self, key):
-        self.cur.execute('SELECT data FROM cvdata WHERE key = %s', (key, ))
-        s = self.cur.fetchone()
+    def getCursor(self):
+        return self.conn.cursor()
+
+    def getData(self, key, cur):
+        cur.execute('SELECT data FROM cvdata WHERE key = %s', (key, ))
+        s = cur.fetchone()
 
         if s == None or s[0] == None:
             data = {}
@@ -34,20 +37,20 @@ class App(object):
 
         return data
 
-    def ensureKey(self, key):
+    def ensureKey(self, key, cur):
         try:
-            self.cur.execute('INSERT INTO cvdata (key) values (%s)', (key, ))
+            cur.execute('INSERT INTO cvdata (key) values (%s)', (key, ))
         except psycopg2.IntegrityError:
             pass
 
-    def setData(self, key, data):
-        self.ensureKey(key)
-        self.cur.execute('UPDATE cvdata SET data = %s WHERE key = %s', (data, key))
+    def setData(self, key, data, cur):
+        self.ensureKey(key, cur)
+        cur.execute('UPDATE cvdata SET data = %s WHERE key = %s', (data, key))
 
 
-    def getPic(self, key):
-        self.cur.execute('SELECT picmimetype, pic FROM cvdata where key = %s', (key, ))
-        mimetype, picBytes = self.cur.fetchone()
+    def getPic(self, key, cur):
+        cur.execute('SELECT picmimetype, pic FROM cvdata where key = %s', (key, ))
+        mimetype, picBytes = cur.fetchone()
         if mimetype == None:
             return None
         else:
@@ -56,13 +59,14 @@ class App(object):
             return foo
 
 
-    def setPic(self, key, picMimeType, picBytes):
-        self.ensureKey(key)
-        self.cur.execute('UPDATE cvdata SET picmimetype = %s, pic = %s WHERE key = %s', (picMimeType, picBytes, key))
+    def setPic(self, key, picMimeType, picBytes, cur):
+        self.ensureKey(key, cur)
+        cur.execute('UPDATE cvdata SET picmimetype = %s, pic = %s WHERE key = %s', (picMimeType, picBytes, key))
 
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
     def cv(self, **kwargs):
+        cur = self.getCursor()
         isPng = kwargs['type'] == 'png'
         doBase64 = kwargs.get('base64') != None
         if (isPng):
@@ -74,11 +78,11 @@ class App(object):
         key = kwargs['key']
         try: # get from request and persist if request contains, otherwise get from db
             data = cherrypy.request.json
-            self.setData(key, json.dumps(data))
+            self.setData(key, json.dumps(data), cur)
         except AttributeError:
-            data = self.getData(key)
+            data = self.getData(key, cur)
 
-        savedPicDataUri = self.getPic(key)
+        savedPicDataUri = self.getPic(key, cur)
 
         if savedPicDataUri != None:
             data['image'] = savedPicDataUri
@@ -220,20 +224,22 @@ class App(object):
 
     @cherrypy.expose('')
     def index(self, **kwargs):
+        cur = self.getCursor()
         try:
             key = kwargs['key']
         except KeyError:
             raise cherrypy.HTTPRedirect('%s/?key=%08x' % (self.baseUrl, random.getrandbits(32)))
 
-        data = self.getData(key)
+        data = self.getData(key, cur)
 
         return self.templateEnv.get_template('index.html').render(data)
 
 
     @cherrypy.expose('upload')
     def upload(self, **kwargs):
+        cur = self.getCursor()
         key = kwargs['key']
-        self.setPic(key, kwargs['mimetype'], cherrypy.request.body.read())
+        self.setPic(key, kwargs['mimetype'], cherrypy.request.body.read(), cur)
 
 
 cherrypy.quickstart(App(), '/',
