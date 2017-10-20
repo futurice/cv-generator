@@ -257,6 +257,10 @@ cherrypy.quickstart(App(), '/',
                      {'tools.staticfile.on': True,
                       'tools.staticfile.filename': os.getcwd() + '/index.js'
                      },
+                     '/futurice-favicon.png':
+                     {'tools.staticfile.on': True,
+                      'tools.staticfile.filename': os.getcwd() + '/futurice-favicon.png'
+                     },
                      'global': {
                          'server.socket_host': '0.0.0.0',
                          'server.socket_port': 8000
