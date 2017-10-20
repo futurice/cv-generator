@@ -5,21 +5,6 @@
   </head>
   <body>
     <div class="left-pane">
-      <img class="pic" src="{{image}}" />
-      <div class="keywords">
-        <ul>
-          {% for keyword in keywords %}
-          <li>{{keyword}}</li>
-          {% endfor %}
-          {% if not keywords or not keywords[0] %}
-          <li> Phasellus purus. </li>
-          <li>Curabitur vestibulum lorem.  </li>
-          <li>Phasellus ligula ultricies.  </li>
-          {% endif %}
-        </ul>
-      </div>
-    </div>
-    <div class="right-pane">
       <h1 class="name">{{name | default('Lorem Ipsum', true)}}</h1>
       <h2 class="title">{{title | default('Dolor Sit', true)}}</h2>
       <div class="intro-texts">
@@ -30,6 +15,7 @@
         <p class="intro-text">Pellentesque dapibus suscipit ligula.  Donec posuere augue in quam.  Etiam vel tortor sodales tellus ultricies commodo.  Suspendisse potenti.  Aenean in sem ac leo mollis blandit.  Donec neque quam, dignissim in, mollis nec, sagittis eu, wisi.</p>
         <p class="intro-text">Integer placerat tristique nisl.  Praesent augue.  Fusce commodo.  Vestibulum convallis, lorem a tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae lacus.</p>
         {% endif %}
+        <p class="intro-text">Core skills: {{ ', '.join(keywords) }}</p>
       </div>
       <div class="experience">
         <h3>Experience</h3>
@@ -37,12 +23,10 @@
           {% for experience in experiences %}
           <dt>{{experience.title}}</dt>
           <dd>{{experience.companyAndTime}}</dd>
-          {% if not loop.last%}<span>—</span>{% endif %}
           {% endfor %}
           {% if not experiences or not experiences[0].title %}
           <dt>Vestibulum Convallis</dt>
           <dd>Aliquam Erat 2000-2100</dd>
-          <span>—</span>
           <dt>Nullam Rutrum</dt>
           <dd>Vivamus Id Enim 1234-4321</dd>
           {% endif %}
@@ -55,13 +39,11 @@
           <dt>{{education.place}}</dt>
           <dd>{{education.degree}}</dd>
           <dd>{{education.time}}</dd>
-          {% if not loop.last%}<span>—</span>{% endif %}
           {% endfor %}
           {% if not educations or not educations[0].place %}
           <dt>Amet Elit</dt>
           <dd>Nunc Justo</dd>
           <dd>2020-2030</dd>
-          <span>—</span>
           <dt>Nullam Libero</dt>
           <dd>Consequat Quis</dd>
           <dd>2030-2035</dd>
@@ -77,5 +59,9 @@
         {% endif %}
       </div>
     </div>
+    <div class="right-pane">
+      <img class="pic" src="{{image}}" />
+    </div>
+    <div class="color-background"></div>
   </body>
 </html>

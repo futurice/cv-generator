@@ -93,25 +93,10 @@ class App(object):
         template = self.templateEnv.get_template('cv.html')
         style = weasyprint.CSS(string = """
         .pic {
-          position: absolute;
-          left: -8px;
-          top: -8px;
-          height: 1080px;
+          height: 979px;
           z-index: -1;
-          width: 726px;
+          width: 800px;
           margin: 0;
-        }
-
-        .right-pane {
-          position: absolute;
-          left: 726px;
-          top: 0;
-          background-color: white;
-          margin: 0;
-          height: 1080px;
-          padding-left: 50px;
-          padding-top: 50px;
-          padding-right: 200px;
         }
 
         .intro-texts {
@@ -131,49 +116,46 @@ class App(object):
 
         .social {
           position: fixed;
-          font-family: Sharp Sans No1 Bold;
+          font-family: Futurice Bold;
           width: 472px;
           bottom: 50px;
-          left: 1248px;
-          color: green;
+          left: 50px;
         }
 
         .social span {
           display: block;
         }
 
+        .right-pane {
+          box-sizing: border-box;
+          position: absolute;
+          left: 1064px;
+          top: 50px;
+          margin: 0;
+          height: 1080px;
+        }
+
         .left-pane {
           position: relative;
-          left: 0;
-          top: 0;
+          left: 50px;
+          top: 50px;
           margin: 0;
           padding: 0;
-          width: 726px;
+          width: 984px;
           height: 1080px;
         }
 
         dt {
-          font-family: Sharp Sans No1 Bold;
+          font-family: Futurice Bold;
+          margin-top: 30px;
         }
 
         dd {
           margin-left: 0;
         }
 
-        .keywords {
-          position: absolute;
-          font-family: Sharp Sans No1 Bold;
-          left: 50%;
-          margin-right: -50%;
-          transform: translate(-50%, 0);
-          bottom: 50px;
-          background-color: #C4E2D9;
-          padding-left: 10px;
-          padding-right: 30px;
-          min-width: 350px;
-        }
-
         h1.name {
+          font-family: Futurice Regular;
           padding-top: 0px;
           padding-bottom: 10px;
           margin-top: 0;
@@ -182,21 +164,37 @@ class App(object):
 
         .title {
           margin-top: 15px;
+          font-family: Futurice Regular;
+        }
+
+        .color-background {
+          background-color: #F9FAFB;
+          z-index: -6;
+          width: 5000px;
+          height: 5000px;
+          transform: rotate(30deg);
+          position: fixed;
+          left: 300px;
+          top: 0;
         }
 
         h1, h2, h3 {
-          font-family: Sharp Sans No1 Black;
           letter-spacing: 2px;
         }
 
         h3 {
-          text-transform: uppercase;
+          font-family: Futurice Bold;
         }
 
+
         body {
-          font-family: Sharp Sans No1 Medium;
+          font-family: Futurice Regular;
+          color: #452999;
           font-size: 30px;
           line-height: 1.2em;
+          width: 1920px;
+          height: 1080px;
+          overflow: hidden;
         }
 
         @page {
