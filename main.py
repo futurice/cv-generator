@@ -188,6 +188,7 @@ class App(object):
 
 
         body {
+          background-color: white;
           font-family: Futurice Regular;
           color: #452999;
           font-size: 30px;
