@@ -4,7 +4,7 @@
   "description": "Futurice CV generator",
   "main": "index.js",
   "dependencies": {
-    "foundation-sites": "^6.1.2",
+    "foundation-sites": "=6.1.2",
     "jquery": "^2.2.0"
   },
   "devDependencies": {
@@ -14,7 +14,7 @@
     "browserify": "^13.0.0",
     "browserify-shim": "^3.8.12",
     "chokidar-cli": "^1.2.0",
-    "node-sass": "^3.4.2"
+    "node-sass": "=3.4.2"
   },
   "scripts": {
     "build-js": "browserify js/main.js -t babelify --outfile index.js",

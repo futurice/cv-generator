@@ -9,6 +9,8 @@ import json
 import random
 import psycopg2
 import base64
+import tempfile
+import subprocess
 
 class App(object):
 
@@ -61,7 +63,11 @@ class App(object):
 
     def setPic(self, key, picMimeType, picBytes, cur):
         self.ensureKey(key, cur)
-        cur.execute('UPDATE cvdata SET picmimetype = %s, pic = %s WHERE key = %s', (picMimeType, picBytes, key))
+        with tempfile.NamedTemporaryFile() as tmp:
+            tmp.write(picBytes)
+            with tempfile.NamedTemporaryFile() as output:
+                subprocess.call(['convert', tmp.name, '-type', 'Grayscale', '-type', 'truecolor', '-fill', '#452999', '-tint', '20', output.name])
+                cur.execute('UPDATE cvdata SET picmimetype = %s, pic = %s WHERE key = %s', (picMimeType, output.read(), key))
 
     @cherrypy.expose('cv')
     @cherrypy.tools.json_in()
